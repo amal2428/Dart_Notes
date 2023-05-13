@@ -1,1 +1,391 @@
-# Study_Materials
+# Data_Structure
+
+////////////////----------Linked List----------//////////////////////
+
+ class Node {
+   Node(this.data);
+        int? data;
+        Node? next;  
+    }
+   
+
+class SLinkedList {
+
+    Node? head;
+    Node? tail;
+//////////////////////////////////////////////////////
+//addnode
+
+    void addNode(int data){
+        Node? newNode = Node(data);
+        if (head == null) {
+            head = newNode;
+        }else{
+            tail?.next = newNode;
+        }
+        tail = newNode;
+    }
+/////////////////////////////////////////////////////////
+   //display
+
+    void display(){
+        if (head == null) {
+            return;
+        }
+        Node? temp = head;
+        while (temp !=null) {
+            print(temp.data);
+            temp = temp.next;
+        }
+    }
+////////////////////////////////////////////////////////////////
+// delete
+
+    void delete (int value){
+        Node? current = head, prev ;
+        if (current != null && current.value == value) {
+            head = current.next;
+            return;
+        }
+        while (current != null && current.value != value) {
+            prev = current;
+            current = current.next;
+        }
+        if (current == null) {
+            return;
+        }
+        if (current == tail) {
+            tail = prev;
+            tail!.next = null;
+            return;            
+        }
+        prev!.next = current.next; 
+    }
+/////////////////////////////////////////////////////////
+//insert
+
+    void insert (int nextTo,int data){
+        Node? newNode = Node(data);
+        Node? temp = head;
+
+        while (temp != null && temp.data != nextTo) {
+            temp = temp.next;
+        }
+
+        if (temp == null) {
+            return;
+        }
+
+        if (temp == tail) {
+            tail!.next = newNode;
+            tail = newNode;
+            return;
+        }
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+    //////////////////////////////////////////////////////
+//displayReverse
+
+ void displayReverse(Node? head) {
+     
+    if (head?.next == null) {
+      print(head?.data);
+      return;
+    }
+     displayReverse(head?.next!);
+    print(head?.data);
+  }
+  ////////////////////////////////////////////////////////////////
+//Reverse
+
+  void reverse() {
+    Node? prev;
+    Node? current = head;
+
+    while (current != null) {
+      Node? next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+    head = prev;
+  }
+
+}
+
+    void main() {
+        SLinkedList? list = SLinkedList();
+        list.display();
+        list.addNode(5);
+        list.addNode(6);
+        list.addNode(20);
+        list.display();
+ 	  list.displayReverse(list.head);
+    }
+
+
+///////////////////////////////////----------------Array------------------///////////////////////////////////////////////
+
+//array insertion
+
+class Array {
+  int val = 23, pos = 4, valDel = 54, temp = 0;
+  List<int> arr = [12, 24, 54, 8, 54, 65];
+
+/////////////////////////////////////////////////////////
+  void insertion() {
+    for (int i = 0; i < pos; i++) {
+      if (i == pos - 1) {
+        arr[i] = val;
+      }
+    }
+    //printing
+    print(arr);
+  }
+//////////////////////////////////////////////////////////
+
+  // element delete
+
+  void deletion() {
+    for (int i = 0; i < arr.length; i++) {
+      if (arr[i] == valDel) {
+        for (int j = i; j < arr.length - 1; j++) {
+          arr[j] = arr[j + 1];
+        }
+        arr.length--;
+      }
+    }
+    print(arr);
+  }
+  //////////////////////////////////////////////////////
+
+  //Reverse
+
+  void reverse() {
+    for (int i = 0; i < arr.length / 2; i++) {
+      temp = arr[i];
+      arr[i] = arr[arr.length - i - 1];
+      arr[arr.length - i - 1] = temp;
+    }
+    print(arr);
+  }
+  ///////////////////////////////////////////////////////
+
+  //Prime number
+
+  void prime() {
+    bool primenumberDetected = false;
+    for (int i = 0; i < arr.length; i++) {
+      int flag = 0;
+      for (int j = 2; j < arr[i]; j++) {
+        if (arr[i] % j == 0) {
+          flag = 1;
+          break;
+        }
+      }
+      if (flag == 0) {
+        print(arr[i]);
+        primenumberDetected = true;
+      }
+    }
+    if (primenumberDetected == false) {
+      print("no prime numbers founds");
+    }
+  }
+  ///////////////////////////////////////////////////
+
+  //sorting
+
+  void sorting() {
+    for (int i = 0; i < arr.length; i++) {
+      for (int j = i + 1; j < arr.length - 1; j++) {
+        if (arr[i] > arr[j]) {
+          temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+        }
+      }
+    }
+    print(arr);
+  }
+  //////////////////////////////////////////////////////
+  
+}
+
+void main() {
+  Array test = Array();
+//   test.insertion();
+//   test.deletion();
+//   test.reverse();
+//   test.prime();
+  test.sorting();
+}
+
+
+
+////////////////////////////////////////////------------Recursion-------------------//////////////////////////////////////
+
+
+//fibonacci using recursion
+
+int fibonacci(int num) {
+  if (num == 0) {
+    return 0;
+  } else if (num == 1) {
+    return 1;
+  } else {
+    return fibonacci(num - 1) + fibonacci(num - 2);
+  }
+}
+
+void main() {
+  int num = 4;
+  for (int i = 0; i < num; i++) {
+    print(fibonacci(i));
+  }
+}
+
+
+/////////////////////////////////////////////
+
+//Factorial of a num using recursion
+
+double factorial(n) {
+  if (n == 0) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+
+void main() {
+  print(factorial(5));
+}
+
+/////////////////////////////////--------------Binary and Linear Search------------------//////////////////////////////////////////
+
+
+//Binary Search
+
+class BinarySearch {
+  String binarySearch(List<int> arr, int val) {
+    int leftIndex = 0;
+    int rightIndex = arr.length - 1;
+ 
+    while (leftIndex <= rightIndex) {
+      int middleIndex = ((leftIndex + rightIndex) / 2).floor();
+      if (value == arr[middleIndex]) {
+        return "Found $value at index $middleIndex";
+      } else if (value < arr[middleIndex]) {
+        rightIndex = middleIndex - 1;
+      } else {
+        leftIndex = middleIndex + 1;
+      }
+    }
+    return "Not Found";
+  }
+}
+
+void main() {
+  List<int> arr = [0, 2, 5, 8, 10, 12, 15, 30];
+  BinarySearch search = BinarySearch();
+  print(search.binarySearch(arr, 30));
+}
+
+
+///////////////////////////////////////
+
+
+//Linear Search
+
+class LinearSearch{
+//   List<int> a=[0,2,5,8,10,12,15,30];
+  
+  String linearSearch(List<int> a,int x){
+    for(int i=0;i<=a.length;i++){
+      if(x==a[i]){
+        return "found $x at index $i";
+      }
+    }
+    return "Not Found";
+  }
+}
+
+
+
+void main(){
+    List<int> a=[0,2,5,8,10,12,15,30];
+
+  LinearSearch list=LinearSearch();
+print(list.linearSearch(a,10));  
+}
+
+
+
+
+///////////////////////////---------------String---------------////////////////////////////////////
+
+// palindrome string
+
+bool palindrome(String str) {
+  for (int i = 0; i < str.length; i++) {
+    if (str[i] != str[str.length - i - 1]) {
+      print("not a palindrome");
+      return false;
+    }
+  }
+  print("Is a palindrome");
+  return true;
+}
+
+void main() {
+  palindrome('malayalam');
+}
+
+///////////////////////////////////////////
+
+// palindrome Number
+
+bool palindrome(int num) {
+ String a=num.toString();
+  for (int i = 0; i < a.length; i++) {
+    if (a[i] != a[a.length - i - 1]) {
+      print("not a palindrome");
+      return false;
+    }
+  }
+  print("Is a palindrome");
+  return true;
+}
+
+void main() {
+  palindrome(1234432145);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
