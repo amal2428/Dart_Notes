@@ -365,6 +365,1108 @@ void main() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+//////////-----------STACK LINKEDLIST----------/////////////////
+
+class Node {
+  int? data;
+  Node? next;
+  Node(this.data);
+}
+
+class LinkedList {
+  Node? head;
+  Node? tail;
+
+  void display() {
+    if (head == null) {
+      return;
+    }
+    Node? current = head;
+
+    while (current != null) {
+      print(current.data);
+      current = current.next;
+    }
+  }
+
+  void push(int value) {
+    Node? top = head;
+    Node newNode = Node(value);
+
+    if (top == null) {
+      head = newNode;
+    } else {
+      newNode.next = top;
+      head = newNode;
+      //last out will be the head
+    }
+  }
+
+  void pop() {
+    if (head == null) {
+      return;
+    }
+    head = head!.next;
+    //now head is the last one
+  }
+}
+
+void main() {
+  LinkedList list = LinkedList();
+  list.push(10);
+  list.push(20);
+  list.push(30);
+  list.push(40);
+  list.push(50);
+  list.push(60);
+  list.push(70);
+  print("Before pop");
+  list.display();
+  list.pop();
+  list.pop();
+  print("After pop");
+  list.display();
+}
+
+
+////////////---------STACK ARRAY---------//////////////////
+
+
+class Stack {
+  List<int> arr = [];
+  push(int value) {
+    arr.add(value);
+  }
+
+  pop() {
+    int temp = arr.last;
+    arr.removeLast();
+    return temp;
+  }
+}
+
+void main() {
+  Stack obj = Stack();
+  obj.push(10);
+  obj.push(20);
+  obj.push(30);
+  obj.push(40);
+  obj.push(50);
+  obj.push(60);
+  print(obj.arr);
+  print(obj.pop());
+  print("Removed array");
+  print(obj.arr);
+}
+
+
+///////////------------QUEUE LINKED LIST----------//////////////
+
+class Node {
+  Node? next;
+  int? data;
+  Node(this.data);
+}
+
+class LinkedList {
+  Node? head;
+  Node? tail;
+
+  void display() {
+    if (head == null) {
+      return;
+    }
+
+    Node? current = head;
+    while (current != null) {
+      print(current.data);
+      current = current.next;
+    }
+  }
+
+  void enqueue(int value) {
+    Node newNode = Node(value);
+    if (tail == null) {
+      head = tail = newNode;
+      return;
+    }
+    tail!.next = newNode;
+    tail = newNode;
+  }
+
+  void dequeue() {
+    if (head == null) {
+      return;
+    }
+    head = head!.next;
+
+    if (head == null) {
+      tail = null;
+    }
+  }
+}
+
+void main() {
+  LinkedList list = LinkedList();
+  list.enqueue(10);
+  list.enqueue(20);
+  list.enqueue(30);
+  list.enqueue(40);
+  list.enqueue(50);
+  list.enqueue(60);
+  list.display();
+  print("");
+  list.dequeue();
+  list.display();
+}
+
+
+///////////////-------------QUEUE ARRAY-----------//////////////////////
+
+class Queue {
+  final List<int> _arr = [];
+
+  void enqueue(int value) {
+    _arr.add(value);
+  }
+
+  int dequeue() {
+    return _arr.removeAt(0);
+  }
+}
+
+void main() {
+  Queue obj = Queue();
+  obj.enqueue(10);
+  obj.enqueue(20);
+  obj.enqueue(30);
+  obj.enqueue(40);
+  obj.enqueue(50);
+  obj.dequeue();
+  print(obj._arr);
+}
+
+///////////////------------HASH TABLE------------///////////////////////////
+
+class HashTable {
+  
+    HashTable(this._size) {
+    _table = List<List<dynamic>>.filled(_size, []);
+  }
+  
+  final int _size;
+  List<List<dynamic>> _table = [];
+
+
+  int _hash(String key) {
+    int hash = 0;
+    for (int i = 0; i < key.length; i++) {
+      hash = hash + key.codeUnitAt(i);
+    }
+    hash = hash % _size;
+    return hash;
+  }
+
+  void add(String key, dynamic value) {
+    int index = _hash(key);
+    for (int i = 0; i < _table[index].length; i++) {
+      if (_table[index][i][0] == key) {
+        _table[index][i][1] = value;
+        return;
+      }
+    }
+    _table[index].add([key, value]);
+  }
+
+  dynamic get(String key) {
+    int index = _hash(key);
+    for (int i = 0; i < _table[index].length; i++) {
+      if (_table[index][i][0] == key) {
+        return _table[index][i][1];
+      }
+    }
+    return null;
+  }
+
+  void remove(String key) {
+    int index = _hash(key);
+    for (int i = 0; i < _table[index].length; i++) {
+      if (_table[index][i][0] == key) {
+        _table[index].removeAt(i);
+        return;
+      }
+    }
+  }
+}
+
+// Example usage
+void main() {
+  HashTable table = HashTable(10);
+  table.add("apple", 5);
+  table.add("banana", 7);
+  table.add("orange", 9);
+  print(table.get("apple")); // Output: 5
+  table.remove("banana");
+  print(table.get("banana")); // Output: null
+}
+
+////////////-----------SORTING-----------/////////////////
+
+
+/////////////-----------BUBBLE SORT------------//////////////////
+
+void main() {
+  List<int> arr = [21, 41, 23, 12, 13, 15, 65, 95, 45, 25];
+
+  for (var i = 0; i < arr.length - 1; i++) {
+    for (var j = 0; j < arr.length - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        int temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+  print(arr);
+}
+
+////////////-----------INSERTION SORT---------///////////////////
+
+void main() {
+  List<int> arr = [21, 41, 23, 12, 13, 15, 65, 95, 45, 25];
+
+  for (int i = 0; i < arr.length; i++) {
+    int current = arr[i];
+    int j = i - 1;
+    while (j >= 0 && arr[j] > current) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = current;
+  }
+  print(arr);
+}
+
+
+////////////////----------MERGE SORT----------//////////////////////
+
+List<int> mergeCombine(List<int> arr1, List<int> arr2) {
+  List<int> combined = [];
+  int i = 0;
+  int j = 0;
+
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] < arr2[j]) {
+      combined.add(arr1[i]);
+      i++;
+    } else {
+      combined.add(arr2[j]);
+      j++;
+    }
+  }
+
+  while (i < arr1.length) {
+    combined.add(arr1[i]);
+    i++;
+  }
+
+  while (j < arr2.length) {
+    combined.add(arr2[j]);
+    j++;
+  }
+
+  return combined;
+}
+
+List<int> mergeSort(List<int> array) {
+  if (array.length == 1) return array;
+  int mid = array.length ~/ 2;
+  List<int> left = array.sublist(0, mid);
+  List<int> right = array.sublist(mid);
+  return mergeCombine(mergeSort(left), mergeSort(right));
+}
+
+void main() {
+  List<int> array = [10, 2, 32, 45, 11, 25, 95];
+  print(mergeSort(array));
+}
+
+////////////-------------QUICK SORT-----------//////////////////
+
+void main() {
+  List<int> array = [5, 10, 25, 15, 45, 35, 65, 55];
+  List<int> result = quickSort(array, 0, array.length - 1);
+  print(result);
+}
+
+quickSort(arr, firstIndex, lastIndex) {
+  if (firstIndex < lastIndex) {
+    int pivotIndex = partition(arr, firstIndex, lastIndex);
+    quickSort(arr, firstIndex, pivotIndex - 1);
+    quickSort(arr, pivotIndex + 1, lastIndex);
+  }
+  return arr;
+}
+
+int partition(arr, low, high) {
+  int pivot = arr[high];
+  int i = low - 1;
+  for (int j = low; j < high; j++) {
+    if (arr[j] < pivot) {
+      i++;
+      swap(arr, i, j);
+    }
+  }
+  swap(arr, i + 1, high);
+  return i + 1;
+}
+
+swap(arr, i, j) {
+  int temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+
+
+///////////////--------------SELECTION SORT--------------///////////////
+
+void main() {
+  List<int> arr = [21, 41, 23, 12, 13, 15, 65, 95, 45, 25];
+  selectionSort(arr);
+  print(arr);
+}
+
+swap(List<int> arr, index1, index2) {
+  int temp = arr[index1];
+  arr[index1] = arr[index2];
+  arr[index2] = temp;
+}
+
+printArray(List<int> arr) {
+  for (int i = 0; i < arr.length; i++) {
+    print(arr[i]);
+  }
+}
+
+selectionSort(List<int> arr) {
+  for (int i = 0; i < arr.length - 1; i++) {
+    for (int j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[i]) {
+        swap(arr, i, j);
+      }
+    }
+  }
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////----------------BST ALL OPERATIONS---------------------/////////////////////
+
+
+class Node {
+  int data;
+  Node? left, right;
+  Node(this.data);
+} 
+
+class BinarySearchTree {
+  Node? root;
+
+//insertion--------------------------------------
+
+  void insert(int data) {
+    Node? currentNode = root;
+    Node? newNode = Node(data);
+
+      // if the tree is empty
+    if (currentNode == null) {
+      root = newNode;
+      print("$data inserted");
+      return;
+    }
+
+    while (true) {
+      // if the tree is not empty
+      // if the data less than current node then we want to add to left else right
+      if (data < currentNode!.data) {
+        // add to left
+        if (currentNode.left == null) {
+          currentNode.left = newNode;
+          break;
+        } else {
+          currentNode = currentNode.left;
+        }
+      } else {
+        // data > currentNode.data ;
+        // add to right
+        if (currentNode.right == null) {
+          currentNode.right = newNode;
+          break;
+        } else {
+          currentNode = currentNode.right;
+        }
+      }
+    }
+
+    print("$data inserted");
+  }
+
+//contains--------------------------
+
+  bool contains(int data) {
+    Node? currentNode = root;
+    while (currentNode != null) {
+      if (data < currentNode.data) {
+        currentNode = currentNode.left;
+      } else if (data > currentNode.data) {
+        currentNode = currentNode.right;
+      } else {
+        // data == currentNode.data
+        return true;
+      }
+    }
+    return false;
+  }
+
+//remove--------------------------------
+
+  void remove(int data) {
+    removeHelper(data, root, null);
+  }
+
+  void removeHelper(int data, Node? currentNode, Node? parentNode) {
+    while (currentNode != null) {
+      if (data < currentNode.data) {
+        parentNode = currentNode;
+        currentNode = currentNode.left;
+      } else if (data > currentNode.data) {
+        parentNode = currentNode;
+        currentNode = currentNode.right;
+      } else {
+        // data == currentNode.data; -> data found
+        if (currentNode.left != null && currentNode.right != null) {
+          // if it have two child
+          currentNode.data = getMinValue(currentNode.right);
+
+          // currentNode = min val in right section
+          removeHelper(currentNode.data, currentNode.right, currentNode);
+        } else {
+          if (parentNode == null) {
+            // if it is a root Node
+            if (currentNode.right == null) {
+              root = currentNode.left;
+            } else {
+              root = currentNode.right;
+            }
+          } else {
+            // if it have a parent Node
+            if (parentNode.left == currentNode) {
+              if (currentNode.right == null) {
+                parentNode.left = currentNode.left;
+              } else {
+                parentNode.left = currentNode.right;
+              }
+            } else {
+              if (currentNode.right == null) {
+                parentNode.right = currentNode.left;
+              } else {
+                parentNode.right = currentNode.right;
+              }
+            }
+          }
+        }
+        break;
+      }
+    }
+  }
+
+// getminval------------------------
+
+  int getMinValue(Node? currentNode) {
+    if (currentNode!.left == null) {
+      return currentNode.data;
+    } else {
+      return getMinValue(currentNode.left);
+    }
+  }
+
+//inorder---------------------
+
+  void inOrder() {
+    inOrderHelper(root);
+  }
+
+  void inOrderHelper(Node? node) {
+    if (node != null) {
+      inOrderHelper(node.left);
+      print(node.data);
+      inOrderHelper(node.right);
+    }
+  }
+
+//preorder-------------------------------
+
+  void preOrder() {
+    preOrderHelper(root);
+  }
+
+  void preOrderHelper(Node? node) {
+    if (node != null) {
+      print(node.data);
+      preOrderHelper(node.left);
+      preOrderHelper(node.right);
+    }
+  }
+
+//postorder------------------------------------
+
+  void postOrder() {
+    postOrderHelper(root);
+  }
+
+  void postOrderHelper(Node? node) {
+    if (node != null) {
+      preOrderHelper(node.left);
+      preOrderHelper(node.right);
+      print(node.data);
+    }
+  }
+}
+
+void main() {
+  BinarySearchTree tree = BinarySearchTree();
+  tree.insert(10);
+  tree.insert(8);
+  tree.insert(11);
+
+  tree.postOrder();
+
+//   tree.remove(8);
+
+//   print(tree.contains(8));
+
+  // print(tree.findClosest(5));
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
+////////////---------GRAPH IMPLEMENTATION--------------/////////////////////////
+
+
+class Graph {
+  Map<int, List<int>> map = {};
+
+  void addVertex(int data) {
+    map[data] = [];
+  }
+
+  void insert(int vertex, int edge, bool isBidirectional) {
+    if (!map.containsKey(vertex)) {
+      addVertex(vertex); 
+    }
+    if (!map.containsKey(edge)) {
+      addVertex(edge);
+    }
+    map[vertex]?.add(edge);
+    if (isBidirectional) {
+      map[edge]?.add(vertex);
+    }
+  }
+
+  display() {
+    for (int key in map.keys) {
+      print("$key : ");
+      for (int value in map[key]!) {
+        print(value);
+      }
+      print("______________________");
+    }
+  }
+}
+
+void main() {
+  Graph graph = Graph();
+  graph.insert(3, 5, true);
+  graph.insert(3, 4, true);
+  graph.insert(5, 6, false);
+  graph.display();
+}
+
+///////////////---------------GRAPH BFS DFS-----------------------/////////////////
+
+import 'dart:collection';
+// import 'dart:io';
+
+class Graph {
+  Map<int, List<int>> map = {};
+
+  addVertex(int data) {
+    map[data] = [];
+  }
+
+  insert(int vertex, int edge, bool isBidirectinal) {
+    if (!map.containsKey(vertex)) {
+      addVertex(vertex);
+    }
+
+    if (!map.containsKey(edge)) {
+      addVertex(edge);
+    }
+
+    map[vertex]!.add(edge);
+
+    if (isBidirectinal) {
+      map[edge]!.add(vertex);
+    }
+  }
+
+  void bfs(int start) {
+    var queue = Queue<int>();
+    var visited = <int>{};
+
+    queue.add(start);
+    visited.add(start);
+
+    while (queue.isNotEmpty) {
+      var current = queue.removeFirst();
+      print('$current ');
+
+      for (var neighbor in map[current]!) {
+        if (!visited.contains(neighbor)) {
+          visited.add(neighbor);
+          queue.add(neighbor);
+        }
+      }
+    }
+    print("   ");
+  }
+
+
+  void dfs(int start) {
+    var stack = <int>[];
+    var visited = <int>{};
+
+    stack.add(start);
+    visited.add(start);
+
+    while (stack.isNotEmpty) {
+      var current = stack.removeLast();
+      print('$current ');
+
+      for (var neighbor in map[current]!) {
+        if (!visited.contains(neighbor)) {
+          visited.add(neighbor);
+          stack.add(neighbor);
+        }
+      }
+    }
+    print("   ");
+  }
+
+
+
+// void dfs(int start) {
+//   Set<int> visited = {};
+//   dfsHelper(start, visited);
+// }
+
+// void dfsHelper(int vertex, Set<int> visited) {
+//   visited.add(vertex);
+//   print(vertex);
+
+//   for (int neighbor in map[vertex]!) {
+//     if (!visited.contains(neighbor)) {
+//       dfsHelper(neighbor, visited);
+//     }
+//   }
+// }
+  void display() {
+    StringBuffer output = StringBuffer();
+    for (int k in map.keys) {
+      output.write('$k: ');
+      for (int val in map[k]!) {
+        output.write('$val ');
+      }
+      output.writeln();
+    }
+    print(output.toString());
+  }
+}
+
+void main(List<String> args) {
+  Graph g = Graph();
+  g.insert(3, 5, true);
+  g.insert(3, 4, true);
+  g.insert(5, 6, false);
+
+  print('BFS');
+  g.bfs(3);
+
+  print('DFS');
+  g.dfs(3);
+}
+
+
+///////////////////////----------------------MIN HEAP ----------------------///////////////////////////
+
+class MinHeap {
+  MinHeap();
+  MinHeap.withDefault(List<int> array) {
+    buildHeap(array);
+  }
+
+  List<int> heap = [];
+
+  void buildHeap(List<int> array) {
+    heap = array;
+    for (int i = parent(heap.length - 1); i >= 0; i--) {
+      shiftDown(i);
+    }
+  }
+
+  void shiftDown(int currentIdx) {
+    
+    int leftChildIdx = leftChild(currentIdx);
+
+    while (leftChildIdx <= heap.length - 1) {
+      int rightChildIdx = rightChild(currentIdx);
+      int idxToShift;
+
+
+      if (rightChildIdx <= heap.length - 1 && heap[rightChildIdx] < heap[leftChildIdx]) {
+        // to find smallest child
+        idxToShift = rightChildIdx;
+      } else {
+        idxToShift = leftChildIdx;
+      }
+
+      if (heap[currentIdx] > heap[idxToShift]) {
+        // to check current with selected smallest  child
+        swap(heap, currentIdx, idxToShift);
+        currentIdx = idxToShift;
+        leftChildIdx = leftChild(currentIdx);
+      } else {
+        return;
+      }
+    }
+  }
+  
+  // void shiftDown(int currentIdx) {
+  //   int endIdx = heap.length - 1;
+  //   int leftIdx = leftChild(currentIdx);
+
+  //   while (leftIdx <= endIdx) {
+  //     int rightIdx = rightChild(currentIdx);
+  //     int idxToShift;
+
+
+  //     if (rightIdx <= endIdx && heap[rightIdx] < heap[leftIdx]) {
+  //       // to find smallest child
+  //       idxToShift = rightIdx;
+  //     } else {
+  //       idxToShift = leftIdx;
+  //     }
+
+  //     if (heap[currentIdx] > heap[idxToShift]) {
+  //       // to check current with selected smallest  child
+  //       swap(heap, currentIdx, idxToShift);
+  //       currentIdx = idxToShift;
+  //       leftIdx = leftChild(currentIdx);
+  //     } else {
+  //       return;
+  //     }
+  //   }
+  // }
+
+  void swap(array, index1, index2) {
+    int temp = array[index1];
+    array[index1] = array[index2];
+    array[index2] = temp;
+  }
+
+  void shiftUp(int currentIdx) {
+    int parentIdx = parent(currentIdx);
+    while (currentIdx > 0 && heap[parentIdx] > heap[currentIdx]) {
+      swap(heap, currentIdx, parentIdx);
+      currentIdx = parentIdx;
+      parentIdx = parent(currentIdx);
+    }
+  }
+
+  int peek() {
+    return heap[0];
+  }
+
+  void remove() {
+    swap(heap, 0, heap.length - 1);
+    heap.removeAt(heap.length - 1);
+    shiftDown(0);
+  }
+
+  void insert(int value) {
+    heap.add(value);
+    shiftUp(heap.length - 1);
+  }
+
+  int parent(int i) {
+    return ((i - 1) / 2).floor();
+  }
+
+  int leftChild(int i) {
+    return (i * 2) + 1;
+  }
+
+  int rightChild(int i) {
+    return (i * 2) + 2;
+  }
+
+  void display() {
+    for (int i = 0; i < heap.length; i++) {
+      print(heap[i]);
+    }
+  }
+}
+
+void main() {
+  List<int> array = [20, 10, 40, 30, 50];
+  MinHeap heap = MinHeap.withDefault(array);
+  heap.insert(60);
+  heap.display();
+}
+
+
+
+//////////-----------------MAX HEAP-------------------///////////
+
+
+class MaxHeap {
+  MaxHeap();
+  MaxHeap.withDefault(List<int> array) {
+    buildHeap(array,array.length-1);
+  }
+
+  List<int> heap = [];
+
+  void buildHeap(List<int> array,int endIndex) {
+    heap = array;
+    for (int i = parent(endIndex); i >= 0; i--) {
+      shiftDown(i,endIndex);
+    }
+  }
+
+  void shiftDown(int currentIdx,int endIndex) {
+    int leftIdx = leftChild(currentIdx);
+    while (leftIdx <= endIndex) {
+      int rightIdx = rightChild(currentIdx);
+      int idxToShift;
+      if (rightIdx <= endIndex && heap[rightIdx] > heap[leftIdx])
+      {
+        idxToShift = rightIdx;
+      } else {
+        idxToShift = leftIdx;
+      }
+      if (heap[currentIdx] < heap[idxToShift]) {
+        swap(heap, currentIdx, idxToShift);
+        currentIdx = idxToShift;
+        leftIdx = leftChild(currentIdx);
+      } else {
+        return;
+      }
+    }
+  }
+
+  void swap(array, index1, index2) {
+    int temp = array[index1];
+    array[index1] = array[index2];
+    array[index2] = temp;
+  }
+
+  int leftChild(int i) {
+    return (i * 2) + 1;
+  }
+
+  int rightChild(int i) {
+    return (i * 2) + 2;
+  }
+
+  int parent(int i) {
+    return ((i - 1) / 2).floor();
+  }
+  
+  heapSort(){
+    for(int i= heap.length-1;i>=0;i--){
+      shiftDown(0,i);
+      swap(heap,0,i);
+    }
+  }
+
+  void display() {
+    for (int i = 0; i < heap.length; i++) {
+      print(heap[i]);
+    }
+  }
+}
+
+void main() {
+  List<int> array = [4,10,3,5,1];
+  MaxHeap heap = MaxHeap.withDefault(array);
+  heap.heapSort();
+  heap.display();
+}
+
+
+
+
+////////////////--------------------TRIE -------------------------///////////////////
+
+
+class TrieNode {
+  late Map<String, TrieNode> children;
+  late bool isEndOfWord;
+
+  TrieNode() {
+    children = {};
+    isEndOfWord = false; 
+  }
+}
+
+class Trie {
+  late TrieNode root;
+
+  Trie() {
+    root = TrieNode();
+  }
+
+  void insert(String word) {
+    TrieNode current = root;
+
+    for (int i = 0; i < word.length; i++) {
+      String char = word[i];
+      if (!current.children.containsKey(char)) {
+        current.children[char] = TrieNode();
+      }
+      current = current.children[char]!;
+    }
+    current.isEndOfWord = true;
+  }
+
+  bool search(String word) {
+    TrieNode current = root;
+
+    for (int i = 0; i < word.length; i++) {
+      String char = word[i];
+      if (!current.children.containsKey(char)) {
+        return false;
+      }
+      current = current.children[char]!;
+    }
+
+    return current.isEndOfWord;
+  }
+
+  // bool startsWith(String prefix) {
+  //   TrieNode current = root;
+
+  //   for (int i = 0; i < prefix.length; i++) {
+  //     String char = prefix[i];
+  //     if (!current.children.containsKey(char)) {
+  //       return false;
+  //     }
+  //     current = current.children[char]!;
+  //   }
+
+  //   return true;
+  // }
+}
+
+void main() {
+  Trie trie = Trie();
+
+  trie.insert("hello");
+  trie.insert("world");
+  trie.insert("hey");
+
+  print(trie.search("hello"));
+  print(trie.search("world")); 
+  print(trie.search("hey")); 
+  print(trie.search("hi")); 
+
+  // print(trie.startsWith("he")); 
+  // print(trie.startsWith("wor")); 
+  // print(trie.startsWith("hey"));
+  // print(trie.startsWith("hii")); 
+}
+
+
+
+////////////////----------------TREE INSERTION-----------------////////////////////////
+
+
+
+// Insert the Values
+
+// Display the values
+
+//////////////////////////////////////////////////////////////////////////////
+
+class TreeNode {
+  int val;
+  TreeNode? left;
+  TreeNode? right;
+
+  TreeNode(this.val);
+}
+
+class Tree {
+  TreeNode? root;
+
+  void insert(int val) {
+    root = _insert(root, val);
+  }
+
+  TreeNode _insert(TreeNode? node, int val) {
+    if (node == null) {
+      return TreeNode(val);
+    }
+
+    if (val < node.val) {
+      node.left = _insert(node.left, val);
+    } else {
+      node.right = _insert(node.right, val);
+    }
+
+    return node;
+  }
+
+  void displayInOrder() {
+    _displayInOrder(root);
+  }
+
+  void _displayInOrder(TreeNode? node) {
+    if (node == null) {
+      return;
+    }
+
+    _displayInOrder(node.left);
+    print(node.val);
+    _displayInOrder(node.right);
+  }
+}
+
+void main() {
+  Tree tree = Tree();
+  tree.insert(5);
+  tree.insert(3);
+  tree.insert(8);
+  tree.insert(1);
+  tree.insert(4);
+  tree.insert(7);
+  tree.insert(9);
+
+  tree.displayInOrder();
+}
 
 
 
@@ -372,20 +1474,7 @@ void main() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//////////////////////////////////////////////////////////////////////////////////
 
 
 
